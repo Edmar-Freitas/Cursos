@@ -52,6 +52,10 @@ def score(score):
 
 
 if __name__ == "__main__":
-    nota = float(input("Digite a nota do Aluno: "))
-    nota = main(nota)
-    score(nota)
+    lista_notas = []
+    for i in range(5):
+        nota = float(input("Digite a nota do Aluno: "))
+        lista_notas.append(nota)
+
+    for nota in lista_notas:
+        score(main(nota))

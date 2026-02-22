@@ -1,7 +1,7 @@
 # 📚 lista_tarefas
 Desafio realizado com intuito de praticar conhecimentos adquiridos sobre a estrutura condicional IF ELSE durante o curso de Python3.
 
-Neste desafio o objetivo foi conceituar a nota recebida por um aluno e retornar o conceito em cores representativas para cada um.
+Neste desafio o objetivo foi conceituar notas recebidas por um aluno e retornar o conceito em cores representativas para cada um.
 
 As cores foram:
 
