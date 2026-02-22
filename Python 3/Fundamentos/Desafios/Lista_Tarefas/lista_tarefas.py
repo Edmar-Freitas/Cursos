@@ -1,4 +1,4 @@
-
+#!/usr/bin/env python3
 """
 Crie um programa que:
     1. Comece com uma lista vazia chamada tarefas
@@ -55,8 +55,8 @@ while opcao != 4:
             print("Tarefas atuais:")
             for idx, tarefa in enumerate(tarefas, start=1):
                 print(f"{idx}. {tarefa}")
-            tarefa_concluida = 
-            int(input("Digite o número da tarefa concluída: "))
+            mensagem = "Digite o número da tarefa concluída: "
+            tarefa_concluida = int(input(mensagem))
             if 1 <= tarefa_concluida <= len(tarefas):
                 tarefas.pop(tarefa_concluida - 1)
                 print("Resultado: Tarefa marcada como concluída!")
@@ -67,5 +67,6 @@ while opcao != 4:
             print("Resultado: Nenhuma tarefa para marcar como concluída.")
     elif opcao == 4:
         print("Resultado: Saindo do Gerenciador de Tarefas. Até mais!")
-    else:     
-        print("Resultado: Opção inválida. Por favor, escolha uma opção válida.")
+    else:
+        print("Resultado: Opção inválida. "
+              "Por favor, escolha uma opção válida.")
