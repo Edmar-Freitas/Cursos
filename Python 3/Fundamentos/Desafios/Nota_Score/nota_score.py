@@ -3,7 +3,7 @@
 
 def main(nota):
     if nota <= 10.0 and nota >= 9.1:
-        return "A" 
+        return "A"
     elif nota <= 9.0 and nota >= 8.1:
         return "A-"
     elif nota <= 8.0 and nota >= 7.1:
