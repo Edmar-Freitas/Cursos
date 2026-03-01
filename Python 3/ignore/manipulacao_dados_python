@@ -1,0 +1,260 @@
+📂 1. Conceitos Fundamentais
+1.1 O que é um arquivo?
+
+Em sistemas operacionais, arquivos são abstrações persistentes de dados armazenados em disco. Em Python, a manipulação é feita via:
+
+open()
+
+pathlib
+
+Bibliotecas especializadas (pandas, csv, json, etc.)
+
+📖 2. Leitura de Arquivos
+2.1 Leitura básica (modo texto)
+with open("dados.txt", "r", encoding="utf-8") as f:
+    conteudo = f.read()
+Modos principais:
+Modo	Descrição
+"r"	leitura
+"w"	escrita (sobrescreve)
+"a"	append
+"b"	binário
+"+"	leitura + escrita
+2.2 Leitura linha a linha (boa prática para arquivos grandes)
+with open("dados.txt", "r", encoding="utf-8") as f:
+    for linha in f:
+        print(linha.strip())
+2.3 Leitura em modo stream (memória eficiente)
+
+Essencial para arquivos grandes (Big Data local):
+
+def ler_em_blocos(arquivo, tamanho_bloco=1024):
+    with open(arquivo, "r", encoding="utf-8") as f:
+        while chunk := f.read(tamanho_bloco):
+            yield chunk
+
+📌 Importância: evita carregar tudo na RAM.
+
+📊 3. Arquivos CSV
+3.1 Usando biblioteca csv (baixo nível)
+import csv
+
+with open("dados.csv", newline="", encoding="utf-8") as f:
+    reader = csv.reader(f)
+    for linha in reader:
+        print(linha)
+3.2 Usando pandas (nível analítico)
+import pandas as pd
+
+df = pd.read_csv("dados.csv")
+Parâmetros importantes:
+
+sep=";"
+
+encoding="latin1"
+
+dtype=
+
+parse_dates=
+
+chunksize= (streaming)
+
+📦 4. Arquivos JSON
+4.1 Leitura
+import json
+
+with open("dados.json", "r", encoding="utf-8") as f:
+    dados = json.load(f)
+4.2 Escrita
+with open("dados.json", "w", encoding="utf-8") as f:
+    json.dump(dados, f, indent=4, ensure_ascii=False)
+
+📌 Muito usado para APIs e configuração.
+
+🧾 5. Arquivos Excel
+5.1 Leitura com pandas
+df = pd.read_excel("dados.xlsx")
+5.2 Escrevendo
+df.to_excel("saida.xlsx", index=False)
+
+Dependências comuns:
+
+openpyxl
+
+xlsxwriter
+
+🗃️ 6. Arquivos Parquet (Data Engineering)
+
+Formato colunar otimizado.
+
+df = pd.read_parquet("dados.parquet")
+df.to_parquet("saida.parquet")
+
+📌 Ideal para:
+
+Data Lakes
+
+Processamento distribuído
+
+Integração com Spark
+
+🧱 7. Arquivos Binários
+with open("imagem.png", "rb") as f:
+    conteudo = f.read()
+
+Uso comum:
+
+Imagens
+
+PDFs
+
+Serialização
+
+🧠 8. Serialização (Pickle)
+import pickle
+
+with open("obj.pkl", "wb") as f:
+    pickle.dump(objeto, f)
+
+with open("obj.pkl", "rb") as f:
+    objeto = pickle.load(f)
+
+⚠️ Nunca carregue pickle de fonte não confiável.
+
+📁 9. Manipulação de Diretórios
+9.1 Usando os
+import os
+os.listdir(".")
+os.mkdir("nova_pasta")
+9.2 Usando pathlib (recomendado)
+from pathlib import Path
+
+p = Path("dados.csv")
+
+print(p.exists())
+print(p.suffix)
+🔄 10. Escrita de Arquivos
+10.1 Escrita simples
+with open("saida.txt", "w", encoding="utf-8") as f:
+    f.write("Texto\n")
+10.2 Append
+with open("log.txt", "a") as f:
+    f.write("Nova linha\n")
+🚀 11. Trabalhando com Arquivos Grandes (Data Scale)
+Estratégias:
+
+chunksize no pandas
+
+Iteradores
+
+Compressão (gzip, bz2)
+
+Formato colunar (Parquet)
+
+Exemplo:
+
+for chunk in pd.read_csv("grande.csv", chunksize=10000):
+    processar(chunk)
+🔐 12. Tratamento de Erros
+try:
+    with open("arquivo.txt") as f:
+        ...
+except FileNotFoundError:
+    print("Arquivo não encontrado")
+except PermissionError:
+    print("Sem permissão")
+🧼 13. Boas Práticas (Visão Profissional)
+✅ Sempre usar with
+
+Evita vazamento de recurso.
+
+✅ Definir encoding
+
+Principalmente em ambientes Windows/Linux mistos.
+
+✅ Validar schema
+
+Em dados analíticos:
+
+df.dtypes
+df.info()
+✅ Não confiar em input externo
+
+Validar antes de processar.
+
+✅ Usar logs
+
+Nunca apenas print() em produção.
+
+✅ Versionamento de arquivos
+
+Timestamp no nome
+
+Estrutura organizada por data
+
+🏗️ 14. Pipeline Realista de Arquivos (Analista/Engenharia)
+
+Exemplo típico:
+
+Receber CSV bruto
+
+Validar estrutura
+
+Tratar encoding
+
+Normalizar colunas
+
+Salvar em Parquet
+
+Persistir em banco ou Data Lake
+
+📊 15. Comparação de Formatos (Análise de Dados)
+Formato	Leve	Estruturado	Performance	Uso
+TXT	Sim	Não	Baixa	Logs
+CSV	Sim	Parcial	Média	Importação
+JSON	Médio	Sim	Média	APIs
+Excel	Pesado	Sim	Baixa	Usuário final
+Parquet	Otimizado	Sim	Alta	Data Lake
+🧪 16. Testabilidade
+
+Criar arquivos temporários com tempfile
+
+Usar mocks para testes unitários
+
+Separar lógica de IO da lógica de negócio
+
+🎯 17. Arquivos em Contexto AWS (Seu contexto profissional)
+
+Como você trabalha com AWS, arquivos são comuns em:
+
+Amazon S3
+
+Data Lakes
+
+ETL
+
+Exemplo com boto3:
+
+import boto3
+
+s3 = boto3.client("s3")
+s3.upload_file("dados.csv", "meu-bucket", "raw/dados.csv")
+🔚 Conclusão Técnica
+
+Manipulação de arquivos em Python envolve três camadas:
+
+Sistema operacional (filesystem)
+
+Formato de dados
+
+Estratégia de processamento (memória, performance, segurança)
+
+Para um analista de dados, o diferencial não é apenas ler arquivos, mas:
+
+Controlar memória
+
+Garantir integridade
+
+Padronizar formatos
+
+Automatizar pipelines

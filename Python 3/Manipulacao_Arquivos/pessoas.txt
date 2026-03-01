@@ -1,0 +1,13 @@
+Nome: Alynne | Idade: 35
+Nome: Edmar | Idade: 40
+Nome: Mariana | Idade: 8
+Nome: Catarina | Idade: 4
+Nome: Gustavo | Idade: 15
+Nome: Rosa | Idade: 25
+Nome: Rodrigo | Idade: 30
+Nome: Pedro | Idade: 20
+Nome: Fernanda | Idade: 18
+Nome: Lucas | Idade: 12
+Nome: Isabela | Idade: 22
+Nome: Sofia | Idade: 28
+Nome: Matheus | Idade: 10
